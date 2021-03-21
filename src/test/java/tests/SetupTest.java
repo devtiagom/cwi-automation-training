@@ -1,7 +1,6 @@
 package tests;
 
 import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import pageObjects.*;
@@ -86,7 +85,7 @@ public class SetupTest extends BaseTests {
         CategoryPage category = new CategoryPage();
         ProductPage pdp = new ProductPage();
 
-        // Obtém nome do produto na página de categoria
+        // Obter nome do produto na página de categoria
         String nameProductCategory = category.getProductNameCategory();
 
         // Clicar em More e direcionar para a página do produto
@@ -94,5 +93,27 @@ public class SetupTest extends BaseTests {
 
         // Verificar se o produto está na página de detalhes do produto corretamente
         assertTrue(pdp.getProductNamePDP().equals(nameProductCategory));
+    }
+
+    @Test
+    public void testAddProductToCartPage() {
+        // Acessar a página de produto
+        testAddProductToProductPage();
+
+        // Iniciar páginas
+        ProductPage pdp = new ProductPage();
+        CartPage cart = new CartPage();
+
+        // Obter nome do produto na página de PDP
+        String nameProductPDP = pdp.getProductNamePDP();
+
+        // Clicar no botão de adicionar ao carrinho
+        pdp.clickButtonAddToCart();
+
+        // Clicar no botão Proceed to Checkout da modal
+        pdp.clickButtonModalProceedToCheckout();
+
+        // Validar o nome do produto no carrinho
+        assertTrue(cart.getNameProductCart().equals(nameProductPDP));
     }
 }

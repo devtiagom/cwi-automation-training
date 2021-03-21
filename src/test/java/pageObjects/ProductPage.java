@@ -13,4 +13,12 @@ public class ProductPage extends ProductPageElementMapper {
     public String getProductNamePDP() {
         return productNamePDP.getText();
     }
+
+    public void clickButtonAddToCart() {
+        buttonAddToCart.click();
+    }
+
+    public void clickButtonModalProceedToCheckout() {
+        buttonModalProceedToCheckout.click();
+    }
 }

@@ -1,13 +1,16 @@
 package tests;
 
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import pageObjects.HomePage;
 import pageObjects.LoginPage;
+import pageObjects.SearchPage;
 import utils.Browser;
 import utils.Utils;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class SetupTest extends BaseTests {
 
@@ -43,34 +46,23 @@ public class SetupTest extends BaseTests {
                 .getCurrentDriver()
                 .findElement(By.className("page-heading")).getText().contains("MY ACCOUNT"));
         System.out.println("Validou minha conta no site");
+    }
 
+    @Test
+    public void testSearch() {
+        String quest = "DRESS";
+        String questResultQtd = "7";
 
+        // Iniciar páginas
+        HomePage home = new HomePage();
+        SearchPage search = new SearchPage();
 
-//        Browser.getCurrentDriver().findElement(By.className("login")).click();
-//        System.out.println("Clicou em Sign In e direcionou para página de login");
-//        assertTrue(Browser.getCurrentDriver()
-//                .getCurrentUrl()
-//                .contains(Utils.getBaseUrl().concat("index.php?controller=authentication&back=my-account")));
-//        Browser.getCurrentDriver()
-//                .findElement(By.id("email"))
-//                .sendKeys("tiago.o.machado@gmail.com");
-//        System.out.println("Preencheu o e-mail");
-//        Browser.getCurrentDriver()
-//                .findElement(By.id("passwd"))
-//                .sendKeys("12345");
-//        System.out.println("Preencheu a senha");
-//        Browser.getCurrentDriver()
-//                .findElement(By.id("SubmitLogin"))
-//                .click();
-//        System.out.println("Clicou em Sign In");
-//        assertTrue(Browser
-//                .getCurrentDriver()
-//                .getCurrentUrl()
-//                .contains(Utils.getBaseUrl().concat("index.php?controller=my-account")));
-//        System.out.println("Validou a url de minha conta");
-//        assertTrue(Browser
-//                .getCurrentDriver()
-//                .findElement(By.className("page-heading")).getText().contains("MY ACCOUNT"));
-//        System.out.println("Validou minha conta no site");
+        // Fazer a pesquisa
+        home.doSearch(quest);
+
+        // Validar a pesquisa
+        assertTrue(search.isSearchPage());
+        assertEquals(search.getTextLighter().replace("\"", ""), quest);
+        assertThat(search.getTextHeading_counter(), CoreMatchers.containsString(questResultQtd));
     }
 }

@@ -13,4 +13,7 @@ public class SearchPageElementMapper {
 
     @FindBy(className = "heading-counter")
     public WebElement heading_counter;
+
+    @FindBy(css = "#block_top_menu .sf-menu li:nth-child(3) a[title=T-shirts]")
+    public WebElement menuTshirts;
 }

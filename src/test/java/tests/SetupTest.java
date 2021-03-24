@@ -116,4 +116,47 @@ public class SetupTest extends BaseTests {
         // Validar o nome do produto no carrinho
         assertTrue(cart.getNameProductCart().equals(nameProductPDP));
     }
+
+    @Test
+    public void testCreateNewAccount() {
+        // Iniciar Páginas
+        HomePage home = new HomePage();
+        LoginPage login = new LoginPage();
+        CreateAccountPage createAccount = new CreateAccountPage();
+
+        home.clickBtnLogin();
+        System.out.println("Clicou em Sign In e direcionou para página de autenticação");
+        assertTrue(Browser.getCurrentDriver()
+                .getCurrentUrl()
+                .contains(Utils.getBaseUrl().concat("index.php?controller=authentication&back=my-account")));
+        System.out.println("Validou url da página de autenticação");
+        login.fillEmailCreate("email@provedor.com.br");
+        System.out.println("Preencheu o e-mail da conta a ser criada");
+        login.clickBtnSubmitCreate();
+        System.out.println("Clicou em Criar uma conta");
+        assertTrue(Browser
+                .getCurrentDriver()
+                .getCurrentUrl()
+                .contains(Utils.getBaseUrl().concat("index.php?controller=authentication&back=my-account")));
+        System.out.println("Validou a url de Criar uma Conta");
+        assertTrue(Browser
+                .getCurrentDriver()
+                .findElement(By.className("page-heading")).getText().contains("AUTHENTICATION"));
+        System.out.println("Validou Autenticação no site");
+        createAccount.checkMaleGender();
+        System.out.println("Selecionou gênero masculino");
+        createAccount.fillAll();
+        System.out.println("Preencheu todos os campos de cadastro");
+        createAccount.clickSubmitButton();
+        System.out.println("Clicou no botão Registrar");
+        assertTrue(Browser
+                .getCurrentDriver()
+                .getCurrentUrl()
+                .contains(Utils.getBaseUrl().concat("index.php?controller=my-account")));
+        System.out.println("Validou a url de minha conta");
+        assertTrue(Browser
+                .getCurrentDriver()
+                .findElement(By.className("page-heading")).getText().contains("MY ACCOUNT"));
+        System.out.println("Validou minha conta no site");
+    }
 }

@@ -21,4 +21,12 @@ public class LoginPage extends LoginPageElementMapper {
     public void clickBtnSubmitLogin() {
         SubmitLogin.click();
     }
+
+    public void fillEmailCreate(String newEmail) {
+        emailCreate.sendKeys(newEmail);
+    }
+
+    public void clickBtnSubmitCreate() {
+        submitCreate.click();
+    }
 }
